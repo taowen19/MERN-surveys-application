@@ -8,5 +8,6 @@ module.exports = {
 	mongoURI: process.env.MONGO_URI,
 	cookieKey: process.env.COOKIE_KEY,
 	stripePublishableKey: process.env.STRIPEpk,
-	stripeSecretKey: process.env.STRIPEsk
+	stripeSecretKey: process.env.STRIPEsk,
+	sendGridKey: process.env.SEND_GRID_KEY
 };
