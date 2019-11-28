@@ -23,7 +23,7 @@ class Mailer extends helper.Mail {
 	formatAddresses(recipients) {
 		//here email wrapped with curly braces to mean an object
 		//and it has to be wrapped with braces cause it is followed by an arrow function
-		recipients.map(({ email }) => {
+		return recipients.map(({ email }) => {
 			return new helper.Email(email);
 		});
 	}
@@ -39,6 +39,7 @@ class Mailer extends helper.Mail {
 
 	addRecipients() {
 		const personalize = new helper.Personalization();
+
 		this.recipients.forEach(recipient => {
 			personalize.addTo(recipient);
 		});
@@ -52,7 +53,7 @@ class Mailer extends helper.Mail {
 			body: this.toJSON()
 		});
 
-		const response = this.sgApi.API(request);
+		const response = await this.sgApi.API(request);
 		return response;
 	}
 }
