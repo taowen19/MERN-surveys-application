@@ -23,7 +23,6 @@ ReactDOM.render(
 	document.querySelector("#root")
 );
 
-console.log("STRIPE KEY IS", process.env.REACT_APP_STRIPE_KEY);
 /// every time store get updated, provider will inform all children in the App
 // the document means index.html , can be found in public folder
 // it's automatically generated

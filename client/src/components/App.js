@@ -5,7 +5,8 @@ import * as actions from "../actions";
 
 import Header from "./Header";
 import Landing from "./Landing";
-const DashBoard = () => <h2>DashBoard</h2>;
+import DashBoard from "./DashBoard";
+import SurveyNew from "./surveys/SurveyNew";
 const SurveyView = () => <h2>SurveyView</h2>;
 
 class App extends Component {
@@ -16,12 +17,10 @@ class App extends Component {
 		return (
 			<div className="container">
 				<BrowserRouter>
-					<div>
-						<Header />
-						<Route exact path="/" component={Landing} />
-						<Route exact path="/surveys" component={DashBoard} />
-						<Route path="/surveys/new" component={SurveyView} />
-					</div>
+					<Header />
+					<Route exact path="/" component={Landing} />
+					<Route exact path="/surveys" component={DashBoard} />
+					<Route path="/surveys/new" component={SurveyNew} />
 				</BrowserRouter>
 			</div>
 		);

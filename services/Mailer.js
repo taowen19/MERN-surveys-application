@@ -8,7 +8,7 @@ class Mailer extends helper.Mail {
 		super();
 
 		this.sgApi = sendgrid(keys.sendGridKey);
-		this.from_emial = new helper.Email("no-reply@emaily.com");
+		this.from_email = new helper.Email("no-reply@emaily.com");
 		this.subject = subject;
 		this.body = new helper.Content("text/html", content);
 		this.recipients = this.formatAddresses(recipients);
@@ -45,7 +45,6 @@ class Mailer extends helper.Mail {
 		});
 		this.addPersonalization(personalize);
 	}
-
 	async send() {
 		const request = this.sgApi.emptyRequest({
 			method: "POST",
