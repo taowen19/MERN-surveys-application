@@ -51,13 +51,25 @@ class SurveyForm extends Component {
 		);
 	}
 }
-
+// DIFFERENCE BETWEEN MAP AND EACH
+// map will return a list, each will just iterate and modify the objects.
 function validate(values) {
 	const errors = {};
 
+	/* This is a redundant code since we need to check 4 fields with the same rules.
 	if (!values.title) {
 		errors.title = "You must provide a title";
 	}
+	*/
+
+	// USE lodash library which was referenced above to iterate.
+	// Notice that we use square brackets instead of dot to reference.
+	_.each(FIELDS, ({name}) =>{
+		if(!values[name]){
+			errors[name] = 'You must provide a value';
+		}
+	});
+	
 
 	return errors;
 }
