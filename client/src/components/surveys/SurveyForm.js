@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import SurveyField from "./SurveyField";
 import { Link } from "react-router-dom";
+import validateEmails from '../../utils/validateEmails';
 
 //store in an array to avoid have long declarations of 4 fields.
 const FIELDS = [
@@ -56,6 +57,10 @@ class SurveyForm extends Component {
 function validate(values) {
 	const errors = {};
 
+	//如果不加 || “” ，在我们还没有输入emails内容的时候，validate就被调用并且emails内容为空，会报错
+	//但是如果这行代码按照intuition放在each loop后面，就会导致空string overrite前面本来已经获得到的真值
+	errors.emails = validateEmails(values.emails || '');
+
 	/* This is a redundant code since we need to check 4 fields with the same rules.
 	if (!values.title) {
 		errors.title = "You must provide a title";
@@ -69,7 +74,7 @@ function validate(values) {
 			errors[name] = 'You must provide a value';
 		}
 	});
-	
+
 
 	return errors;
 }
