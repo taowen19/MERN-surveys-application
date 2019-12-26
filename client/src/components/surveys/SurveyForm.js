@@ -4,18 +4,11 @@ import { reduxForm, Field } from "redux-form";
 import SurveyField from "./SurveyField";
 import { Link } from "react-router-dom";
 import validateEmails from '../../utils/validateEmails';
-
-//store in an array to avoid have long declarations of 4 fields.
-const FIELDS = [
-	{ label: "Survey Title", name: "title" },
-	{ label: "Subject Line", name: "subject" },
-	{ label: "Email body", name: "body" },
-	{ label: "Recipient List", name: "emails" }
-];
+import formFields from './formFields';
 
 class SurveyForm extends Component {
 	renderFields() {
-		return _.map(FIELDS, ({ label, name }) => {
+		return _.map(formFields, ({ label, name }) => {
 			return (
 				<Field
 					key={name}
@@ -32,10 +25,7 @@ class SurveyForm extends Component {
 		return (
 			<div>
 				<form
-					onSubmit={this.props.handleSubmit(values =>
-						console.log(values)
-					)}
-				>
+					onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
 					{this.renderFields()}
 					<Link to="/surveys" className="red btn-flat white-text">
 						Cancel
@@ -59,7 +49,7 @@ function validate(values) {
 
 	//如果不加 || “” ，在我们还没有输入emails内容的时候，validate就被调用并且emails内容为空，会报错
 	//但是如果这行代码按照intuition放在each loop后面，就会导致空string overrite前面本来已经获得到的真值
-	errors.emails = validateEmails(values.emails || '');
+	errors.recipients = validateEmails(values.recipients || '');
 
 	/* This is a redundant code since we need to check 4 fields with the same rules.
 	if (!values.title) {
@@ -69,7 +59,7 @@ function validate(values) {
 
 	// USE lodash library which was referenced above to iterate.
 	// Notice that we use square brackets instead of dot to reference.
-	_.each(FIELDS, ({name}) =>{
+	_.each(formFields, ({name}) =>{
 		if(!values[name]){
 			errors[name] = 'You must provide a value';
 		}
@@ -81,5 +71,6 @@ function validate(values) {
 
 export default reduxForm({
 	validate: validate,
-	form: "SurveyForm"
+	form: "SurveyForm",
+	destroyOnUnmount: false
 })(SurveyForm);
