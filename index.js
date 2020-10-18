@@ -11,9 +11,23 @@ require("./models/Survey");
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI);
+// mongoose.set('useNewUrlParser', true);
+// mongoose.set('useFindAndModify', true);
+// mongoose.set('useCreateIndex', true);
+// conn = mongoose.createConnection(keys.mongoURI);
+// mongoose.connect(keys.mongoURI, { useNewUrlParser: true }, (err, res) => {
+// 	if (err) throw err;
+	
+// 	console.log('Database online');
+// 	});
 
 const app = express();
 
+// app.get('/', function (req, res) {
+// 	//res.render('index', {});
+// 	res.send({ hi : 'there'});
+//   });
+  
 app.use(bodyParser.json());
 
 app.use(
